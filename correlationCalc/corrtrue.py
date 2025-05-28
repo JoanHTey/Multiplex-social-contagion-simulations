@@ -7,65 +7,80 @@ from joblib import Parallel, delayed
 
 
 if __name__ == "__main__":
-    filename = 'output.txt'
-    matrix = np.loadtxt(filename, dtype=int)
+    filename = 'output.bin'
+    ini = r'C:\Users\Usuario\Desktop\Master\TFM\Code\simulation\INITIAL.txt'
+    matrix =  np.fromfile(filename, dtype=np.int32)  # or np.int8 if you know the type
+    init = np.loadtxt(ini)
+    NTOT = int(init[0]*2)
+    T = int(init[2]- init[8])  # Total time steps minus initial time
+    matrix = matrix.reshape((T, NTOT+2), order='C')  # Fortran order
+    matrix = matrix[:, 1:NTOT+1] 
     adjacency_matrix = np.loadtxt('adjacency_matrix.txt', dtype=int)
 
-    T,NTOT = matrix.shape
-
-    SK = 5000
+    N = NTOT // 2
     mu = 0.5
     h = np.linspace(0, 14, 15)
-    num_rands = 500*1000
-    
+    num_rands_i = 500
+    num_rands = num_rands_i*N
+    gap = T//500
+
     # Compute ACF for multiple lags and average for the first 1000 particles
-    k1 = np.zeros((500 * 1000, 15), dtype=int)
-    k2 = np.zeros((500 * 1000, 15), dtype=int)
-    k3 = np.zeros((500 * 1000, 15), dtype=int)
-    k4 = np.zeros((500 * 1000, 15), dtype=int)
-    k5 = np.zeros((500 * 1000, 15), dtype=int)
-    k6 = np.zeros((500 * 1000, 15), dtype=int)
-    k7 = np.zeros((500 * 1000, 15), dtype=int)
-    k8 = np.zeros((500 * 1000, 15), dtype=int)
-    k9 = np.zeros((500 * 1000, 15), dtype=int)
-    k10 = np.zeros((500 * 1000, 15), dtype=int)
-    k11 = np.zeros((500 * 1000, 15), dtype=int)
-    k12 = np.zeros((500 * 1000, 15), dtype=int)
+    k1 = np.zeros((num_rands, 15), dtype=int)
+    k2 = np.zeros((num_rands, 15), dtype=int)
+    k3 = np.zeros((num_rands, 15), dtype=int)
+    k4 = np.zeros((num_rands, 15), dtype=int)
+    k5 = np.zeros((num_rands, 15), dtype=int)
+    k6 = np.zeros((num_rands, 15), dtype=int)
+    k7 = np.zeros((num_rands, 15), dtype=int)
+    k8 = np.zeros((num_rands, 15), dtype=int)
+    k9 = np.zeros((num_rands, 15), dtype=int)
+    k10 = np.zeros((num_rands, 15), dtype=int)
+    k11 = np.zeros((num_rands, 15), dtype=int)
+    k12 = np.zeros((num_rands, 15), dtype=int)
 
     def process_j(j):
         # Local arrays for a single j
-        local_k1 = np.zeros((500, 15), dtype=int)
-        local_k2 = np.zeros((500, 15), dtype=int)
-        local_k3 = np.zeros((500, 15), dtype=int)
-        local_k4 = np.zeros((500, 15), dtype=int)
-        local_k5 = np.zeros((500, 15), dtype=int)
-        local_k6 = np.zeros((500, 15), dtype=int)
-        local_k7 = np.zeros((500, 15), dtype=int)
-        local_k8 = np.zeros((500, 15), dtype=int)
-        local_k9 = np.zeros((500, 15), dtype=int)
-        local_k10 = np.zeros((500, 15), dtype=int)
-        local_k11 = np.zeros((500, 15), dtype=int)
-        local_k12 = np.zeros((500, 15), dtype=int)
+        local_k1 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k2 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k3 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k4 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k5 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k6 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k7 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k8 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k9 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k10 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k11 = np.zeros((num_rands_i, 15), dtype=int)
+        local_k12 = np.zeros((num_rands_i, 15), dtype=int)
 
         for i in range(15):
-            RANDOM1 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
-            RANDOM2 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
-            RANDOM3 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
-            RANDOM4 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
-            RANDOM5 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
-            RANDOM6 = np.random.choice(np.arange(SK, T - i), size=500, replace=False)
+            # spacing = 10  # or 20, depending on estimated autocorrelation time
+            # candidates = np.arange(0, T - i - spacing, spacing)
+            # RANDOM1 = np.random.choice(candidates, size=num_rands_i, replace=False)
+            # RANDOM2 = np.random.choice(candidates, size=num_rands_i, replace=False)
+            # RANDOM3 = np.random.choice(candidates, size=num_rands_i, replace=False)
+            # RANDOM4 = np.random.choice(candidates, size=num_rands_i, replace=False)
+            # RANDOM5 = np.random.choice(candidates, size=num_rands_i, replace=False)
+            # RANDOM6 = np.random.choice(candidates, size=num_rands_i, replace=False)
+
+            RANDOM1 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
+            RANDOM2 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
+            RANDOM3 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
+            RANDOM4 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
+            RANDOM5 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
+            RANDOM6 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
 
             # First layer correlation
             local_k1[:, i] = matrix[RANDOM1, j]
             local_k2[:, i] = matrix[RANDOM1 + i, j]
 
             # Second layer correlation
-            local_k3[:, i] = matrix[RANDOM2, 1000 + j]
-            local_k4[:, i] = matrix[RANDOM2 + i, 1000 + j]
+            local_k3[:, i] = matrix[RANDOM2, N + j]
+            local_k4[:, i] = matrix[RANDOM2 + i, N + j]
 
             # Correlation between layers same node
             local_k5[:, i] = matrix[RANDOM3, j]
-            local_k6[:, i] = matrix[RANDOM3 + i, 1000 + j]
+            local_k6[:, i] = matrix[RANDOM3 + i, N + j]
 
             # Correlation same layer diff node
             local_k7[:, i] = matrix[RANDOM4, j]
@@ -73,11 +88,11 @@ if __name__ == "__main__":
 
             # Correlation diff layer diff node
             local_k9[:, i] = matrix[RANDOM5, j]
-            local_k10[:, i] = matrix[RANDOM5 + i, adjacency_matrix[1000 + j, 1] - 1]
+            local_k10[:, i] = matrix[RANDOM5 + i, adjacency_matrix[N + j, 1] - 1]
 
             # Correlation same layer diff node (second layer)
-            local_k11[:, i] = matrix[RANDOM6, 1000 + j]
-            local_k12[:, i] = matrix[RANDOM6 + i, adjacency_matrix[1000 + j, 1] - 1]
+            local_k11[:, i] = matrix[RANDOM6, N + j]
+            local_k12[:, i] = matrix[RANDOM6 + i, adjacency_matrix[N + j, 1] - 1]
 
         return (
             local_k1, local_k2, local_k3, local_k4, local_k5, local_k6,
@@ -85,7 +100,7 @@ if __name__ == "__main__":
         )
 
     # Run in parallel
-    results = Parallel(n_jobs=10)(delayed(process_j)(j) for j in range(1000))
+    results = Parallel(n_jobs=10)(delayed(process_j)(j) for j in range(N))
 
     # Stack each group of results
     k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12 = [
@@ -112,4 +127,3 @@ if __name__ == "__main__":
         save_results(filenames[i], data_arrays[i])
 
 
-# %%

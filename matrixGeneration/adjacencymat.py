@@ -3,9 +3,10 @@ print("Generating graphs")
 import networkx as nx
 import numpy as np    
 
+info = np.loadtxt('simulation/INITIAL.txt')
 k1=30
 k2=10
-N=1000
+N=int(info[0])
 print("Generating graphs")
 G1_2=nx.random_regular_graph(k1,N)
 G2_2=nx.random_regular_graph(k2,N)

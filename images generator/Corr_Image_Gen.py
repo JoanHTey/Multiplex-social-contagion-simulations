@@ -15,50 +15,151 @@ def personcorr_aprox3(filename,h, b, mu):
     #x = (term1 / term2) * mean_col0
     return x
 
-SamelayerSameNode1 = np.loadtxt('final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('final_corr4.txt')
-SamelayerDiffNode2 = np.loadtxt('final_corr6.txt')
-DiffLayerDiffNode = np.loadtxt('final_corr5.txt')
+SamelayerSameNode1_ETA1 = np.loadtxt('Data/final_corr1_eta1.txt')
+SamelayerSameNode2_ETA1 = np.loadtxt('Data/final_corr2_eta1.txt')
+DiffLayerSameNode_ETA1 = np.loadtxt('Data/final_corr3_eta1.txt')
+SameLayerDiffNode1_ETA1 = np.loadtxt('Data/final_corr4_eta1.txt')
+SamelayerDiffNode2_ETA1 = np.loadtxt('Data/final_corr6_eta1.txt')
+DiffLayerDiffNode_ETA1 = np.loadtxt('Data/final_corr5_eta1.txt')
+
+# # Load the data from the text files
+SamelayerSameNode1_ETA25 = np.loadtxt('Data/final_corr1_eta25.txt')
+SamelayerSameNode2_ETA25 = np.loadtxt('Data/final_corr2_eta25.txt')
+DiffLayerSameNode_ETA25 = np.loadtxt('Data/final_corr3_eta25.txt')
+SameLayerDiffNode1_ETA25 = np.loadtxt('Data/final_corr4_eta25.txt')
+DiffLayerDiffNode_ETA25 = np.loadtxt('Data/final_corr5_eta25.txt')
+SamelayerDiffNode2_ETA25 = np.loadtxt('Data/final_corr6_eta25.txt')
+
+# Load the data from the text files
+SamelayerSameNode1_ETA001 = np.loadtxt('Data/final_corr1_eta0.01.txt')
+SamelayerSameNode2_ETA001  = np.loadtxt('Data/final_corr2_eta0.01.txt')
+DiffLayerSameNode_ETA001  = np.loadtxt('Data/final_corr3_eta0.01.txt')
+SameLayerDiffNode1_ETA001  = np.loadtxt('Data/final_corr4_eta0.01.txt')
+DiffLayerDiffNode_ETA001  = np.loadtxt('Data/final_corr5_eta0.01.txt')
+SamelayerDiffNode2_ETA001  = np.loadtxt('Data/final_corr6_eta0.01.txt')
+
+# Load the data from the text files
+SamelayerSameNode1_BETA0034 = np.loadtxt('Data/final_corr1_beta0.034.txt')
+SamelayerSameNode2_BETA0034 = np.loadtxt('Data/final_corr2_beta0.034.txt')
+DiffLayerSameNode_BETA0034 = np.loadtxt('Data/final_corr3_beta0.034.txt')
+SameLayerDiffNode1_BETA0034 = np.loadtxt('Data/final_corr4_beta0.034.txt')
+DiffLayerDiffNode_BETA0034 = np.loadtxt('Data/final_corr5_beta0.034.txt')
+SamelayerDiffNode2_BETA0034 = np.loadtxt('Data/final_corr6_beta0.034.txt')
+
 h = np.linspace(0, 14, 15,dtype=int)
 
-#%%
-filename = [r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.005.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.006.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.007.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.008.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.009.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.010.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.012.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.014.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.016.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.018.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.021.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.024.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.028.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.032.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.037.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.043.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.050.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.058.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.067.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.077.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.089.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.103.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.119.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.137.txt',
-            r'C:\Users\Usuario\Desktop\Master\TFM\Code\mstereq\output2INPR0.158.txt']
+# Master equation solution
+SS1MSTEQ_ETA1 = np.loadtxt('Data/final_corr1msteq_eta1.txt')
+SS2MSTEQ_ETA1 = np.loadtxt('Data/final_corr2msteq_eta1.txt')
 
+SS1MSTEQ_ETA25 = np.loadtxt('Data/final_corr1msteq_eta25.txt')
+SS2MSTEQ_ETA25 = np.loadtxt('Data/final_corr2msteq_eta25.txt')
 
-for i in range(25):
-    plt.plot(h, SamelayerSameNode1[i,1:], label='SamelayerSameNode1', color='blue')
-    plt.plot(h, personcorr_aprox3(filename[i],h,1,0.5), label='SamelayerSameNode1 theoric', color='black')
-    plt.show()
+SS1MSTEQ_ETA001 = np.loadtxt('Data/final_corr1msteq_eta0.01.txt')
+SS2MSTEQ_ETA001 = np.loadtxt('Data/final_corr2msteq_eta0.01.txt')
 
+SS1MSTEQ_BETA0034 = np.loadtxt('Data/final_corr1msteq_beta0.034.txt')
+SS2MSTEQ_BETA0034 = np.loadtxt('Data/final_corr2msteq_beta0.034.txt')
 
 #%%
-for i in h:
-    plt.title(f'Indent space {i}')
-    plt.plot(SamelayerSameNode1[:,0],SamelayerSameNode1[:,i])
-    plt.show()
+# for i in range(25):
+#     plt.plot(h, SamelayerSameNode1[i,1:], label='SamelayerSameNode1', color='blue')
+#     plt.plot(h, personcorr_aprox3(filename[i],h,1,0.5), label='SamelayerSameNode1 theoric', color='black')
+#     plt.show()
+#%%
+plt.plot(h, SamelayerSameNode1_ETA001[6,1:], label='SamelayerSameNode1')
+plt.plot(h, SamelayerSameNode2_ETA001[4,1:], label='SamelayerSameNode2')
+plt.plot(h, DiffLayerSameNode_ETA001[6,1:], label='DiffLayerSameNode')
+plt.plot(h, SameLayerDiffNode1_ETA001[6,1:], label='SameLayerDiffNode1')
+plt.plot(h, SamelayerDiffNode2_ETA001[6,1:], label='SamelayerDiffNode2')
+plt.plot(h, DiffLayerDiffNode_ETA001[6,1:], label='DiffLayerDiffNode')
+plt.xlabel('time lag (h)',fontsize=14)
+plt.ylabel('Correlation',fontsize=14)
+plt.title(r'$\beta$=0.037',fontsize=14)
+plt.legend()
+plt.grid()
+plt.savefig('CorrAll.png')
+plt.show()
+#%%
+
+plt.title(f'Indent space {1}')
+plt.plot(SamelayerSameNode1_ETA001[:,0],SamelayerSameNode1_ETA001[:,2],linestyle='',marker='o',label='SamelayerSameNode1')
+plt.plot(SamelayerSameNode2_ETA001[:,0],SamelayerSameNode2_ETA001[:,2],linestyle='',marker='o',label='SamelayerSameNode2')
+plt.plot(DiffLayerSameNode_ETA001[:,0],DiffLayerSameNode_ETA001[:,2],linestyle='',marker='o',label='DiffLayerSameNode') 
+plt.plot(SameLayerDiffNode1_ETA001[:,0],SameLayerDiffNode1_ETA001[:,2],linestyle='',marker='o',label='SameLayerDiffNode1')
+plt.plot(SamelayerDiffNode2_ETA001[:,0],SamelayerDiffNode2_ETA001[:,2],linestyle='',marker='o',label='SamelayerDiffNode2')
+plt.plot(DiffLayerDiffNode_ETA001[:,0],DiffLayerDiffNode_ETA001[:,2],linestyle='',marker='o',label='DiffLayerDiffNode')
+plt.plot(SS1MSTEQ_ETA001[:,0],SS1MSTEQ_ETA001[:,2],linestyle='-',label='SamelayerSameNode1 Mstereq')
+plt.plot(SS2MSTEQ_ETA001[:,0],SS2MSTEQ_ETA001[:,2],linestyle='-',label='SamelayerSameNode2 Mstereq')
+plt.xlabel(r'$beta$',fontsize=14)
+plt.ylabel('Correlation',fontsize=14)
+plt.legend()
+plt.grid()
+plt.savefig('CorrBeta_ETA001.png')
+plt.show()
+
+#%%
+plt.title(f'Indent space {1}') 
+plt.plot(SamelayerSameNode1_ETA25[:,0],SamelayerSameNode1_ETA25[:,2],linestyle='',marker='o',label='SamelayerSameNode1')
+plt.plot(SamelayerSameNode2_ETA25[:,0],SamelayerSameNode2_ETA25[:,2],linestyle='',marker='o',label='SamelayerSameNode2')
+plt.plot(DiffLayerSameNode_ETA25[:,0],DiffLayerSameNode_ETA25[:,2],linestyle='',marker='o',label='DiffLayerSameNode')
+plt.plot(SameLayerDiffNode1_ETA25[:,0],SameLayerDiffNode1_ETA25[:,2],linestyle='',marker='o',label='SameLayerDiffNode1')
+plt.plot(SamelayerDiffNode2_ETA25[:,0],SamelayerDiffNode2_ETA25[:,2],linestyle='',marker='o',label='SamelayerDiffNode2')
+plt.plot(DiffLayerDiffNode_ETA25[:,0],DiffLayerDiffNode_ETA25[:,2],linestyle='',marker='o',label='DiffLayerDiffNode')
+plt.plot(SS1MSTEQ_ETA25[:,0],SS1MSTEQ_ETA25[:,2],linestyle='-',label='SamelayerSameNode1 Mstereq')
+plt.plot(SS2MSTEQ_ETA25[:,0],SS2MSTEQ_ETA25[:,2],linestyle='-',label='SamelayerSameNode2 Mstereq')
+plt.xlabel(r'$beta$',fontsize=14)
+plt.ylabel('Correlation',fontsize=14)
+plt.legend()
+plt.grid()
+plt.savefig('CorrBeta_ETA25.png')
+plt.show()
+#%% 
+plt.title(f'Indent space {1}')
+plt.plot(SamelayerSameNode1_ETA1[:,0],SamelayerSameNode1_ETA1[:,2],linestyle='',marker='o',label='SamelayerSameNode1')  
+plt.plot(SamelayerSameNode2_ETA1[:,0],SamelayerSameNode2_ETA1[:,2],linestyle='',marker='o',label='SamelayerSameNode2')
+plt.plot(DiffLayerSameNode_ETA1[:,0],DiffLayerSameNode_ETA1[:,2],linestyle='',marker='o',label='DiffLayerSameNode')
+plt.plot(SameLayerDiffNode1_ETA1[:,0],SameLayerDiffNode1_ETA1[:,2],linestyle='',marker='o',label='SameLayerDiffNode1')
+plt.plot(SamelayerDiffNode2_ETA1[:,0],SamelayerDiffNode2_ETA1[:,2],linestyle='',marker='o',label='SamelayerDiffNode2')
+plt.plot(DiffLayerDiffNode_ETA1[:,0],DiffLayerDiffNode_ETA1[:,2],linestyle='',marker='o',label='DiffLayerDiffNode')
+plt.plot(SS1MSTEQ_ETA1[:,0],SS1MSTEQ_ETA1[:,2],linestyle='-',label='SamelayerSameNode1 Mstereq')
+plt.plot(SS2MSTEQ_ETA1[:,0],SS2MSTEQ_ETA1[:,2],linestyle='-',label='SamelayerSameNode2 Mstereq')
+plt.xlabel(r'$beta$',fontsize=14)
+plt.ylabel('Correlation',fontsize=14)
+plt.legend()
+plt.grid()
+plt.savefig('CorrBeta_ETA1.png')
+plt.show()
+#%%
+plt.title(f'Indent space {1}')
+plt.plot(SamelayerSameNode1_BETA0034[:,0],SamelayerSameNode1_BETA0034[:,2],linestyle='',marker='o',label='SamelayerSameNode1')
+plt.plot(SamelayerSameNode2_BETA0034[:,0],SamelayerSameNode2_BETA0034[:,2],linestyle='',marker='o',label='SamelayerSameNode2')
+plt.plot(DiffLayerSameNode_BETA0034[:,0],DiffLayerSameNode_BETA0034[:,2],linestyle='',marker='o',label='DiffLayerSameNode')
+plt.plot(SameLayerDiffNode1_BETA0034[:,0],SameLayerDiffNode1_BETA0034[:,2],linestyle='',marker='o',label='SameLayerDiffNode1')
+plt.plot(SamelayerDiffNode2_BETA0034[:,0],SamelayerDiffNode2_BETA0034[:,2],linestyle='',marker='o',label='SamelayerDiffNode2')
+plt.plot(DiffLayerDiffNode_BETA0034[:,0],DiffLayerDiffNode_BETA0034[:,2],linestyle='',marker='o',label='DiffLayerDiffNode')
+plt.plot(SS1MSTEQ_BETA0034[:,0],SS1MSTEQ_BETA0034[:,2],linestyle='-',label='SamelayerSameNode1 Mstereq')
+plt.plot(SS2MSTEQ_BETA0034[:,0],SS2MSTEQ_BETA0034[:,2],linestyle='-',label='SamelayerSameNode2 Mstereq')
+plt.xlabel(r'$eta$',fontsize=14)
+plt.ylabel('Correlation',fontsize=14)
+plt.legend()
+plt.grid()
+plt.savefig('CorrEta_BETA0034.png')
+plt.show()
+#%%
+plt.title(f'Difeerence correlation between layers at indent 1')
+plt.plot(SamelayerSameNode1_BETA0034[:,0],-SamelayerSameNode1_BETA0034[:,2]+SamelayerSameNode2_BETA0034[:,2],linestyle='',marker='o',label='SamelayerSameNode1')
+plt.xlabel(r'$\eta$',fontsize=14)
+plt.ylabel(r'$\Delta$Correlation',fontsize=14)
+plt.legend()
+max_diff_idx = np.argmax(-SamelayerSameNode1_BETA0034[:,2] + SamelayerSameNode2_BETA0034[:,2])
+plt.axvline(SamelayerSameNode1_BETA0034[max_diff_idx,0], color='red', linestyle='--', label='Max Difference')
+plt.grid()
+plt.savefig('CorrDiffEta_BETA0034.png')
+plt.show()
+#%%
+plt.title(f'lag h in different eta')
+plt.plot(h, SamelayerSameNode1_ETA001[16,1:], label='SamelayerSameNode1 eta=001')
+plt.plot(h, SamelayerSameNode2_ETA001[16,1:], label='SamelayerSameNode2 eta=001')
+plt.plot(h, SS1MSTEQ_ETA001[24,1:], label='DiffLayerSameNode eta=001')
+plt.plot(h, SS2MSTEQ_ETA001[24,1:], label='SameLayerDiffNode1 eta=001')

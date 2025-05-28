@@ -3,7 +3,7 @@
 MOVE INITIAL.txt simulation\INITIAL.txt
 REM Run the Python script to generate the adjacency matrix
 python matrixGeneration\adjacencymat.py
-
+echo Adjacency matrix generated.
 REM Move the adjacency_matrix.txt file to the simulation folder
 MOVE adjacency_matrix.txt simulation\adjacency_matrix.txt
 
@@ -32,7 +32,8 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 REM Move output.txt and adjacency_matrix.txt to correlationCalc folder
-MOVE simulation\output.txt correlationCalc\output.txt
+REM MOVE simulation\output.txt correlationCalc\output.txt
+MOVE simulation\output.bin correlationCalc\output.bin
 MOVE simulation\adjacency_matrix.txt correlationCalc\adjacency_matrix.txt
 
 REM Run the Python script to process the results

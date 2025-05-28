@@ -26,14 +26,15 @@ def corrcalc(X1,X2):
 
 def main():
     # Define the range of parameters you want to test
-    N = 1000
+    N = 5000
     DIM = 2
-    STIME= 20000
+    STIME= 60000
     ETA = 0.01
     M = 1000
     GAMMA1 = 100000
     GAMMA2 = 100000
     INPR = np.loadtxt('INPR.txt', dtype=float)
+    DISCTIME = 10000
     
     # Check if the files exist and delete them if they do
     files_to_check = [
@@ -54,7 +55,7 @@ def main():
             dtype='int', chunks=True
         )
             
-    params = [N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2]
+    params = [N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISCTIME]
     write_initial_file(params)
 
     for i in range(0,10):

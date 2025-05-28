@@ -8,12 +8,8 @@ files_to_check = [
     'final_corr4.txt', 'final_corr5.txt', 'final_corr6.txt'
 ]
 
-for file in files_to_check:
-    if os.path.exists(file):
-        os.remove(file)
-
 start_time = time.time()
-for i in np.logspace(-2,-0.5,25):
+for i in np.linspace(0.03,0.12, 10):
     INPR = i
     np.savetxt('INPR.txt', [INPR], fmt='%.6f')
     result = subprocess.run([r'scripts\betaLoop.bat'], capture_output=True, text=True)

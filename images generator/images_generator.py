@@ -7,7 +7,7 @@ Created on Tue Jun  4 23:35:44 2024
 import numpy as np
 import matplotlib.pyplot as plt
 
-with open('output.txt', 'r') as file:
+with open('simulation/output.txt', 'r') as file:
     lines = file.readlines()
 
 # Determine the number of time steps (T) and the number of elements (NTOT)

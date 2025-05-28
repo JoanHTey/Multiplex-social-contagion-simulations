@@ -30,16 +30,18 @@ PROGRAM MSTREQ
         R(I+N) = 1.D0-(1.D0-1.D0/DBLE(SUM(ADJA(I,:))))**GAMMA2
     END DO
 
-
-    IF (ETA*INPR.LE.1) THEN
-        NU = 0.5D0
-        INPR = INPR * NU
-        EXPR = ETA * INPR
-    ELSE
-        EXPR = 1.D0
-        NU = 1.D0/(ETA * INPR)
-        INPR = 1.D0/ETA
-    END IF
+    NU = 0.5D0
+    INPR = INPR * NU
+    EXPR = ETA * INPR
+    !IF (ETA*INPR.LE.1) THEN
+    !    NU = 0.5D0
+    !    INPR = INPR * NU
+    !    EXPR = ETA * INPR
+    !ELSE
+    !    EXPR = 1.D0
+    !    NU = 1.D0/(ETA * INPR)
+    !    INPR = 1.D0/ETA
+    !END IF
 
     DO I = 1, NTOT
         X(I) = 0
@@ -62,9 +64,9 @@ PROGRAM MSTREQ
         END DO
     END DO
 
-    WRITE(INPR_STR, '(F6.3)') INPR
+   
     ! Open the file
-    OPEN(UNIT=1, FILE='output2INPR'//TRIM(ADJUSTL(INPR_STR))//'.txt', STATUS='unknown', ACTION='write', IOSTAT=IOSTAT)
+    OPEN(UNIT=1, FILE='output2INPR.txt', STATUS='unknown', ACTION='write', IOSTAT=IOSTAT)
     
     WRITE(1,*)(X(j), j=1,NTOT)
         DO K=1,NTOT 
