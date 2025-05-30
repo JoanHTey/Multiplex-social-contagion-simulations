@@ -2,6 +2,7 @@ import numpy as np
 import subprocess
 import os
 import time
+import shutil
 
 def personcorr_aprox3(filename,h, b, mu):
     mat = np.loadtxt(filename, dtype=float)
@@ -22,10 +23,10 @@ def write_initial_file(params, filename='INITIAL.txt'):
         file.write(' '.join(map(str, params)) + '\n')
 
 
-N = 1000
+N = 5000
 DIM = 2
 STIME= 20000
-ETA = 1
+ETA = 0.01
 M = 1000
 GAMMA1 = 100000
 GAMMA2 = 100000
@@ -34,11 +35,12 @@ h = np.linspace(0, 14, 15,dtype=int)
 mu=0.5
 
 start_time = time.time()
-for i in np.linspace(0.3,0.5,30):
+for i in np.linspace(0.01,0.15,50):
     INPR = i
     params = [N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2]
     write_initial_file(params)
-    subprocess.run(['python', r'C:\Users\Usuario\Desktop\Master\TFM\Code\matrixGeneration\adjacencymat.py'], check=True)
+    shutil.copy('INITIAL.txt', os.path.join('C:/Users/Usuario/Desktop/Master/TFM/Code/simulation', 'INITIAL.txt'))
+    subprocess.run(['python', r'C:/Users/Usuario/Desktop/Master/TFM/Code/matrixGeneration/adjacencymat.py'], check=True)
     result = subprocess.run([r'meq.exe'], capture_output=True, text=True)
     if result.returncode != 0:
         print("error MEQLoop:", result.stderr)

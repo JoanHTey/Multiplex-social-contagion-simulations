@@ -3,7 +3,7 @@ print("Generating graphs")
 import networkx as nx
 import numpy as np    
 
-info = np.loadtxt('simulation/INITIAL.txt')
+info = np.loadtxt('C:/Users/Usuario/Desktop/Master/TFM/Code/simulation/INITIAL.txt')
 k1=30
 k2=10
 N=int(info[0])
