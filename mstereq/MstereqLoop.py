@@ -4,11 +4,11 @@ import os
 import time
 import shutil
 
-def personcorr_aprox3(filename,h, b, mu):
+def personcorr_aprox3(filename,h, b, mu,N):
     mat = np.loadtxt(filename, dtype=float)
     
-    mean_col1 = np.mean(mat[1, 1000 * (b - 1):1000 * b])
-    mean_col0 = np.mean(mat[0, 1000 * (b - 1):1000 * b])
+    mean_col1 = np.mean(mat[1, N * (b - 1):N * b])
+    mean_col0 = np.mean(mat[0, N * (b - 1):N * b])
     
     term1 = (1 - mean_col1) + mu * mean_col1 * (mean_col1 * (1 - mu)) ** h
     term2 = 1 - mean_col1 * (1 - mu)
@@ -35,7 +35,7 @@ h = np.linspace(0, 14, 15,dtype=int)
 mu=0.5
 
 start_time = time.time()
-for i in np.linspace(0.01,0.15,50):
+for i in np.logspace(-2,-0.3,60):
     INPR = i
     params = [N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2]
     write_initial_file(params)
@@ -46,10 +46,13 @@ for i in np.linspace(0.01,0.15,50):
         print("error MEQLoop:", result.stderr)
     else:
         print("Succesfull MEQLoop.")
-    
+    mat = np.loadtxt('output2INPR.txt', dtype=float)
     with open('final_corr1msteq.txt', 'a') as f:
-        np.savetxt(f, [np.concatenate([[INPR], personcorr_aprox3('output2INPR.txt',h, 1, mu)])], fmt='%.6f')
+        np.savetxt(f, [np.concatenate([[INPR], personcorr_aprox3('output2INPR.txt',h, 1, mu,N)])], fmt='%.6f')
     with open('final_corr2msteq.txt', 'a') as f:
-        np.savetxt(f, [np.concatenate([[INPR], personcorr_aprox3('output2INPR.txt',h, 2, mu)])], fmt='%.6f')
-
+        np.savetxt(f, [np.concatenate([[INPR], personcorr_aprox3('output2INPR.txt',h, 2, mu,N)])], fmt='%.6f')
+    with open('den1msteq.txt', 'a') as f:
+        np.savetxt(f, [np.concatenate([[INPR], [np.mean(mat[0, N * (1 - 1):N * 1])]])], fmt='%.6f')
+    with open('den2msteq.txt', 'a') as f:
+        np.savetxt(f, [np.concatenate([[INPR], [np.mean(mat[0, N * (2 - 1):N * 2])]])], fmt='%.6f')
 print("Time taken for the loop: ", time.time() - start_time)

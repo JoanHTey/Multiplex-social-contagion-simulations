@@ -26,8 +26,8 @@ PROGRAM MSTREQ
     CLOSE(1)
     
     DO I = 1, N
-        R(I) = 1.D0-(1.D0-1.D0/DBLE(SUM(ADJA(I,:))))**GAMMA1
-        R(I+N) = 1.D0-(1.D0-1.D0/DBLE(SUM(ADJA(I,:))))**GAMMA2
+        R(I) = 1.D0-(1.D0-1.D0/DBLE(ADJA(I,1)))**GAMMA1
+        R(I+N) = 1.D0-(1.D0-1.D0/DBLE(ADJA(I+N,1)))**GAMMA2
     END DO
 
     NU = 0.5D0

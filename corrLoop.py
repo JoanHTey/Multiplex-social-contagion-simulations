@@ -26,15 +26,15 @@ def corrcalc(X1,X2):
 
 def main():
     # Define the range of parameters you want to test
-    N = 5000
+    N = 1000
     DIM = 2
-    STIME= 60000
-    ETA = 0.01
+    STIME= 40000
+    ETA = 25
     M = 1000
     GAMMA1 = 100000
     GAMMA2 = 100000
     INPR = np.loadtxt('INPR.txt', dtype=float)
-    DISCTIME = 10000
+    DISCTIME = 20000
     
     # Check if the files exist and delete them if they do
     files_to_check = [
@@ -52,7 +52,7 @@ def main():
         with h5py.File(file, "w") as f:
             f.create_dataset(
             "X", shape=(0, 15), maxshape=(None, 15),
-            dtype='int', chunks=True
+            dtype='int32', chunks=(N*500, 15)
         )
             
     params = [N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISCTIME]
@@ -116,4 +116,5 @@ def main():
     with open('final_corr6.txt', 'a') as f:
         np.savetxt(f, [np.concatenate([[INPR], corr6.flatten()])], fmt='%.6f')
 if __name__ == "__main__":
+
     main()

@@ -54,14 +54,6 @@ if __name__ == "__main__":
         local_k12 = np.zeros((num_rands_i, 15), dtype=int)
 
         for i in range(15):
-            # spacing = 10  # or 20, depending on estimated autocorrelation time
-            # candidates = np.arange(0, T - i - spacing, spacing)
-            # RANDOM1 = np.random.choice(candidates, size=num_rands_i, replace=False)
-            # RANDOM2 = np.random.choice(candidates, size=num_rands_i, replace=False)
-            # RANDOM3 = np.random.choice(candidates, size=num_rands_i, replace=False)
-            # RANDOM4 = np.random.choice(candidates, size=num_rands_i, replace=False)
-            # RANDOM5 = np.random.choice(candidates, size=num_rands_i, replace=False)
-            # RANDOM6 = np.random.choice(candidates, size=num_rands_i, replace=False)
 
             RANDOM1 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
             RANDOM2 = np.linspace(0,num_rands_i-1,num_rands_i, dtype=int)*gap
