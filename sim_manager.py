@@ -208,7 +208,7 @@ def cmd_beta_loop(args):
         print("h5py required. Install with: pip install h5py")
         sys.exit(1)
 
-    x = np.logspace(-2, -1, 20)
+    x = np.logspace(-2, -1, 20) # Change this to modify the sweeping range
     log_mids = 0.5 * (np.log10(x[1:]) + np.log10(x[:-1]))
     inpr_values = np.sort(np.append(x, 10 ** log_mids))
 
