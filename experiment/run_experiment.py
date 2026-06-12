@@ -319,7 +319,7 @@ if __name__ == "__main__":
 
     if args.command == "run":
         params = [args.N, args.DIM, args.STIME, args.ETA, 0,
-                  args.M, args.GAMMA1, args.GAMMA2, args.DISCTIME, args.LAGS]
+                  args.M, args.GAMMA1, args.GAMMA2, args.DISCTIME, args.LAGS, args.MU]
         write_initial(params)
         write_betas(np.array(args.betas))
         compile_experiment()

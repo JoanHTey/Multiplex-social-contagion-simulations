@@ -9,7 +9,7 @@ PROGRAM SIMULATION
     ! Example content of 'INITIAL.txt':
     ! 10 3 0.01 0.5 1 1.0 0.1 0.2
     OPEN (1 , FILE = 'INITIAL.txt')
-    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISTIME,LAGS
+    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISTIME, LAGS, NU
     CLOSE (1)
     
     OPEN (1, FILE = 'BETAS.txt', STATUS='old', ACTION='read', IOSTAT=IOSTAT)
@@ -70,7 +70,7 @@ PROGRAM SIMULATION
 
         INPR = BETAS(H)
 
-        NU = 0.5D0
+        !NU = 0.5D0
         INPR = INPR * NU
         EXPR = ETA * INPR
         DT = 1
