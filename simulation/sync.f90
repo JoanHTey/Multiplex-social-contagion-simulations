@@ -3,13 +3,13 @@ PROGRAM SIMULATION
     INTEGER :: N, NTOT, DT, STIME, I, K, M, K1, NEI, NNEI, KSUM, IOSTAT, F, SUM50, S, J,DISTIME
     INTEGER, ALLOCATABLE :: X(:), SAVEX(:,:), ADJA(:,:), XP(:)
 
-    REAL(8) :: NU, PR, PREP, EXPR, INPR, CS, ETA, GAMMA1, GAMMA2
+    REAL(8) :: MU, PR, PREP, EXPR, INPR, CS, ETA, GAMMA1, GAMMA2
     REAL(8), ALLOCATABLE :: R(:)
 
     ! Example content of 'INITIAL.txt':
     ! 10 3 0.01 0.5 1 1.0 0.1 0.2
     OPEN (1 , FILE = 'INITIAL.txt')
-    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISTIME
+    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, DISTIME, MU
     CLOSE (1)
 
     NTOT = DIM * N
@@ -44,17 +44,17 @@ PROGRAM SIMULATION
         R(I+N) = 1.D0-(1.D0-1.D0/DBLE(ADJA(I+N,1)))**GAMMA2
     END DO
 
-    NU = 0.5D0
-    INPR = INPR * NU
+    !MU = 0.5D0
+    INPR = INPR * MU
     EXPR = ETA * INPR
     
     !IF (ETA*INPR.LE.1) THEN
-    !    NU = 0.5D0
-    !    INPR = INPR * NU
+    !    MU = 0.5D0
+    !    INPR = INPR * MU
     !    EXPR = ETA * INPR
     !ELSE
     !    EXPR = 1.D0
-    !    NU = 1.D0/(ETA * INPR)
+    !    MU = 1.D0/(ETA * INPR)
     !    INPR = 1.D0/ETA
 
     !END IF
@@ -129,7 +129,7 @@ PROGRAM SIMULATION
             K = I
 
             IF (X(K).EQ.1) THEN
-                IF (r1279() .LT. NU) THEN
+                IF (r1279() .LT. MU) THEN
                     XP(K) = 0
                 END IF  
             END IF
