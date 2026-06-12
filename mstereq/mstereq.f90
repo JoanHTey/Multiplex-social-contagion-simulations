@@ -9,7 +9,7 @@ PROGRAM MSTREQ
     ! Example content of 'INITIAL.txt':
     ! 10 3 0.01 0.5 1 1.0 0.1 0.2
     OPEN (1 , FILE = 'INITIAL.txt')
-    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2
+    READ (1,*) N, DIM, STIME, ETA, INPR, M, GAMMA1, GAMMA2, NU
     CLOSE (1)
     NTOT= DIM * N
     ALLOCATE(X(NTOT), XSAVE(NTOT), ADJA(NTOT, N), R(NTOT), QLIST(NTOT))
@@ -30,7 +30,7 @@ PROGRAM MSTREQ
         R(I+N) = 1.D0-(1.D0-1.D0/DBLE(ADJA(I+N,1)))**GAMMA2
     END DO
 
-    NU = 0.5D0
+    !NU = 0.5D0
     INPR = INPR * NU
     EXPR = ETA * INPR
     !IF (ETA*INPR.LE.1) THEN
