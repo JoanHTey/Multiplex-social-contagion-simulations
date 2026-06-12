@@ -1,6 +1,17 @@
+from pathlib import Path
+
 import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+ROOT       = Path(__file__).parent          # repo root (this script's folder)
+DATA_DIR   = ROOT / "Data"
+IMAGES_DIR = ROOT / "Images"
+IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def personcorr_aprox3(filename,h, b, mu):
     mat = np.loadtxt(filename, dtype=float)
@@ -35,15 +46,15 @@ def groupby_mean_and_error(arr):
 
 #%%
 
-density= np.load('Data/density_eta1_N5000.npy')
+density= np.load(str(DATA_DIR / 'density_eta1_N5000.npy'))
 beta_density = np.logspace(-2,-0.3,50)
 
-SamelayerSameNode1 = np.loadtxt('Data/eta1_mu05_N1000/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/eta1_mu05_N1000/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/eta1_mu05_N1000/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/eta1_mu05_N1000/final_corr4.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/eta1_mu05_N1000/final_corr6.txt')
-DiffLayerDiffNode = np.loadtxt('Data/eta1_mu05_N1000/final_corr5.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr4.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr6.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr5.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -51,11 +62,11 @@ SameLayerDiffNode1,ESameLayerDiffNode1 = groupby_mean_and_error(SameLayerDiffNod
 DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
-SS1MSTEQ = np.loadtxt('Data/eta1_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta1_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr2msteq.txt'))
 
-den1T = np.loadtxt('Data/eta1_mu05_N1000/den1msteq.txt')
-den2T = np.loadtxt('Data/eta1_mu05_N1000/den2msteq.txt')
+den1T = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/den1msteq.txt'))
+den2T = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/den2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 5))
@@ -102,7 +113,7 @@ axs[1].axvline(1/10,linestyle='--',color='green',label = r'$\frac{1}{\Lambda_2}$
 axs[1].legend(fontsize=14)
 
 plt.tight_layout()
-plt.savefig('CorrBeta_ETA1.pdf')
+plt.savefig(str(IMAGES_DIR / 'CorrBeta_ETA1.pdf'))
 plt.show()
 
 
@@ -110,12 +121,12 @@ plt.show()
 
 
 # # Load the data from the text files
-SamelayerSameNode1 = np.loadtxt('Data/beta0034_mu05_N1000/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/beta0034_mu05_N1000/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/beta0034_mu05_N1000/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/beta0034_mu05_N1000/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/beta0034_mu05_N1000/final_corr5.txt')
-SamelayerDiffNode2= np.loadtxt('Data/beta0034_mu05_N1000/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr5.txt'))
+SamelayerDiffNode2= np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -124,8 +135,8 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/beta0034_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/beta0034_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'beta0034_mu05_N1000/final_corr2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 1, figsize=(6, 5))
@@ -160,7 +171,7 @@ axs.axvline(21.1271827928,linestyle='--',color='black', label=r'$\left(\frac{\et
 axs.legend(fontsize=12,loc='upper left')
 
 plt.tight_layout()
-plt.savefig('CorrBeta_BETA0034.pdf')
+plt.savefig(str(IMAGES_DIR / 'CorrBeta_BETA0034.pdf'))
 plt.show()
 
 #%%
@@ -191,21 +202,21 @@ plt.axvline(21.1271827928, color='black', linestyle='--', label=r'$\left(\frac{\
 # Legend and save
 plt.legend(fontsize=14)
 plt.tight_layout()
-plt.savefig('CorrDiffEta_BETA0034.pdf')
+plt.savefig(str(IMAGES_DIR / 'CorrDiffEta_BETA0034.pdf'))
 plt.show()
 
 
 #%%
-density= np.load('Data/density_eta001_N5000.npy')
+density= np.load(str(DATA_DIR / 'density_eta001_N5000.npy'))
 beta_density = np.logspace(-2,-0.3,50)
 h = np.linspace(0, 14, 15,dtype=int)
 
-SamelayerSameNode1 = np.loadtxt('Data/eta001_mu05_N1000/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/eta001_mu05_N1000/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/eta001_mu05_N1000/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/eta001_mu05_N1000/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/eta001_mu05_N1000/final_corr5.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/eta001_mu05_N1000/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr5.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -214,11 +225,11 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/eta001_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta001_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr2msteq.txt'))
 
-den1T = np.loadtxt('Data/eta001_mu05_N1000/den1msteq.txt')
-den2T = np.loadtxt('Data/eta001_mu05_N1000/den2msteq.txt')
+den1T = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/den1msteq.txt'))
+den2T = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/den2msteq.txt'))
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -264,7 +275,7 @@ axs[1].axvline(1/10,linestyle='--',color='green',label = r'$\frac{1}{\Lambda_2}$
 axs[1].legend(fontsize=14)
 
 plt.tight_layout()
-plt.savefig('CorrBeta_ETA001.pdf')
+plt.savefig(str(IMAGES_DIR / 'CorrBeta_ETA001.pdf'))
 plt.show()
 #%%
 plt.figure(figsize=(6, 5))
@@ -282,23 +293,23 @@ plt.plot(h[:7],SS2MSTEQ[49,1:8],linestyle='--',color='darkgreen',label=r'$\rho_{
 plt.xlabel('lag h',fontsize=14)
 plt.ylabel(r'$\rho(h)$',fontsize=14)
 plt.legend(fontsize=14)
-plt.savefig('corrcorr.pdf')
+plt.savefig(str(IMAGES_DIR / 'corrcorr.pdf'))
 plt.show()
 
 #%%
-density= np.load('Data/density_eta25_N5000.npy')
+density= np.load(str(DATA_DIR / 'density_eta25_N5000.npy'))
 beta_density = np.logspace(-2,-0.3,50)
 h = np.linspace(0, 14, 15,dtype=int)
 
-den1T = np.loadtxt('Data/eta25_mu05_N1000/den1msteq.txt')
-den2T = np.loadtxt('Data/eta25_mu05_N1000/den2msteq.txt')
+den1T = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/den1msteq.txt'))
+den2T = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/den2msteq.txt'))
 
-SamelayerSameNode1 = np.loadtxt('Data/eta25_mu05_N1000/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/eta25_mu05_N1000/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/eta25_mu05_N1000/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/eta25_mu05_N1000/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/eta25_mu05_N1000/final_corr5.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/eta25_mu05_N1000/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr5.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -307,8 +318,8 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/eta25_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta25_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 5))
@@ -355,7 +366,7 @@ axs[1].axvline(1/43,linestyle='--',color='green',label = r'$\frac{1}{\Lambda_S}$
 axs[1].legend(fontsize=14)
 
 plt.tight_layout()
-plt.savefig('CorrBeta_ETA25.pdf')
+plt.savefig(str(IMAGES_DIR / 'CorrBeta_ETA25.pdf'))
 plt.show()
 
 
@@ -363,79 +374,79 @@ plt.show()
 #%%
 h = np.linspace(0, 14, 15,dtype=int)
 
-mu1lay1 = np.loadtxt('Data/Muanalysis/mu1/final_corr1.txt')
+mu1lay1 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr1.txt'))
 Emu1lay1 = np.std(mu1lay1,axis=0)
 mu1lay1 = np.mean(mu1lay1,axis=0)
-mu1lay2 = np.loadtxt('Data/Muanalysis/mu1/final_corr2.txt')
+mu1lay2 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr2.txt'))
 Emu1lay2 = np.std(mu1lay2,axis=0)
 mu1lay2 = np.mean(mu1lay2,axis=0)
-mu1lay12 = np.loadtxt('Data/Muanalysis/mu1/final_corr3.txt')
+mu1lay12 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr3.txt'))
 Emu1lay12 = np.std(mu1lay12,axis=0)
 mu1lay12 = np.mean(mu1lay12,axis=0)
-mu1lay11 = np.loadtxt('Data/Muanalysis/mu1/final_corr4.txt')
+mu1lay11 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr4.txt'))
 Emu1lay11 = np.std(mu1lay11,axis=0)
 mu1lay11 = np.mean(mu1lay11,axis=0)
-mu1lay22 = np.loadtxt('Data/Muanalysis/mu1/final_corr5.txt')
+mu1lay22 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr5.txt'))
 Emu1lay22 = np.std(mu1lay22,axis=0)
 mu1lay22 = np.mean(mu1lay22,axis=0)
-mu1lay122 = np.loadtxt('Data/Muanalysis/mu1/final_corr6.txt')
+mu1lay122 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu1/final_corr6.txt'))
 Emu1lay122 = np.std(mu1lay122,axis=0)
 mu1lay122 = np.mean(mu1lay122,axis=0)
 
-mu05lay1 = np.loadtxt('Data/Muanalysis/mu05/final_corr1.txt')
+mu05lay1 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr1.txt'))
 Emu05lay1 = np.std(mu05lay1,axis=0)
 mu05lay1 = np.mean(mu05lay1,axis=0)
-mu05lay2 = np.loadtxt('Data/Muanalysis/mu05/final_corr2.txt')
+mu05lay2 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr2.txt'))
 Emu05lay2 = np.std(mu05lay2,axis=0)
 mu05lay2 = np.mean(mu05lay2,axis=0)
-mu05lay12 = np.loadtxt('Data/Muanalysis/mu05/final_corr3.txt')
+mu05lay12 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr3.txt'))
 Emu05lay12 = np.std(mu05lay12,axis=0)
 mu05lay12 = np.mean(mu05lay12,axis=0)
-mu05lay11 = np.loadtxt('Data/Muanalysis/mu05/final_corr4.txt')
+mu05lay11 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr4.txt'))
 Emu05lay11 = np.std(mu05lay11,axis=0)
 mu05lay11 = np.mean(mu05lay11,axis=0)
-mu05lay22 = np.loadtxt('Data/Muanalysis/mu05/final_corr5.txt')
+mu05lay22 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr5.txt'))
 Emu05lay22 = np.std(mu05lay22,axis=0)
 mu05lay22 = np.mean(mu05lay22,axis=0)
-mu05lay122 = np.loadtxt('Data/Muanalysis/mu05/final_corr6.txt')
+mu05lay122 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu05/final_corr6.txt'))
 Emu05lay122 = np.std(mu05lay122,axis=0)
 mu05lay122 = np.mean(mu05lay122,axis=0)
 
-mu075lay1 = np.loadtxt('Data/Muanalysis/mu075/final_corr1.txt')
+mu075lay1 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr1.txt'))
 Emu075lay1 = np.std(mu075lay1,axis=0)
 mu075lay1 = np.mean(mu075lay1,axis=0)
-mu075lay2 = np.loadtxt('Data/Muanalysis/mu075/final_corr2.txt')
+mu075lay2 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr2.txt'))
 Emu075lay2 = np.std(mu075lay2,axis=0)
 mu075lay2 = np.mean(mu075lay2,axis=0)
-mu075lay12 = np.loadtxt('Data/Muanalysis/mu075/final_corr3.txt')
+mu075lay12 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr3.txt'))
 Emu075lay12 = np.std(mu075lay12,axis=0)
 mu075lay12 = np.mean(mu075lay12,axis=0)
-mu075lay11 = np.loadtxt('Data/Muanalysis/mu075/final_corr4.txt')
+mu075lay11 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr4.txt'))
 Emu075lay11 = np.std(mu075lay11,axis=0)
 mu075lay11 = np.mean(mu075lay11,axis=0)
-mu075lay22 = np.loadtxt('Data/Muanalysis/mu075/final_corr5.txt')
+mu075lay22 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr5.txt'))
 Emu075lay22 = np.std(mu075lay22,axis=0)
 mu075lay22 = np.mean(mu075lay22,axis=0)
-mu075lay122 = np.loadtxt('Data/Muanalysis/mu075/final_corr6.txt')
+mu075lay122 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu075/final_corr6.txt'))
 Emu075lay122 = np.std(mu075lay122,axis=0)
 mu075lay122 = np.mean(mu075lay122,axis=0)
 
-mu095lay1 = np.loadtxt('Data/Muanalysis/mu095/final_corr1.txt')
+mu095lay1 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr1.txt'))
 Emu095lay1 = np.std(mu095lay1,axis=0)
 mu095lay1 = np.mean(mu095lay1,axis=0)
-mu095lay2 = np.loadtxt('Data/Muanalysis/mu095/final_corr2.txt')
+mu095lay2 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr2.txt'))
 Emu095lay2 = np.std(mu095lay2,axis=0)
 mu095lay2 = np.mean(mu095lay2,axis=0)
-mu095lay12 = np.loadtxt('Data/Muanalysis/mu095/final_corr3.txt')
+mu095lay12 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr3.txt'))
 Emu095lay12 = np.std(mu095lay12,axis=0)
 mu095lay12 = np.mean(mu095lay12,axis=0)
-mu095lay11 = np.loadtxt('Data/Muanalysis/mu095/final_corr4.txt')
+mu095lay11 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr4.txt'))
 Emu095lay11 = np.std(mu095lay11,axis=0)
 mu095lay11 = np.mean(mu095lay11,axis=0)
-mu095lay22 = np.loadtxt('Data/Muanalysis/mu095/final_corr5.txt')
+mu095lay22 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr5.txt'))
 Emu095lay22 = np.std(mu095lay22,axis=0)
 mu095lay22 = np.mean(mu095lay22,axis=0)
-mu095lay122 = np.loadtxt('Data/Muanalysis/mu095/final_corr6.txt')
+mu095lay122 = np.loadtxt(str(DATA_DIR / 'Muanalysis/mu095/final_corr6.txt'))
 Emu095lay122 = np.std(mu095lay122,axis=0)
 mu095lay122 = np.mean(mu095lay122,axis=0)
 
@@ -462,17 +473,17 @@ axs.set_ylabel(r'$\rho(h)$',fontsize=14)
 axs.legend(fontsize=14)
 
 plt.tight_layout()
-plt.savefig('muAnalisis.pdf')
+plt.savefig(str(IMAGES_DIR / 'muAnalisis.pdf'))
 plt.show()
 
 #%%
 
-SamelayerSameNode1 = np.loadtxt('Data/EReta1_mu05/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/EReta1_mu05/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/EReta1_mu05/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/EReta1_mu05/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/EReta1_mu05/final_corr5.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/EReta1_mu05/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr5.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'EReta1_mu05/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -481,8 +492,8 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/eta1_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta1_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta1_mu05_N1000/final_corr2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 1, figsize=(6, 5))
@@ -514,16 +525,16 @@ axs.set_xscale('log')
 axs.legend(fontsize=12)
 
 plt.tight_layout()
-plt.savefig('EReta1.pdf')
+plt.savefig(str(IMAGES_DIR / 'EReta1.pdf'))
 plt.show()
 
 #%%
-SamelayerSameNode1 = np.loadtxt('Data/EReta001_mu05/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/EReta001_mu05/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/EReta001_mu05/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/EReta001_mu05/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/EReta001_mu05/final_corr5.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/EReta001_mu05/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr5.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'EReta001_mu05/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -532,8 +543,8 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/eta001_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta001_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta001_mu05_N1000/final_corr2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 1, figsize=(6, 5))
@@ -565,16 +576,16 @@ axs.set_xscale('log')
 axs.legend(fontsize=12)
 
 plt.tight_layout()
-plt.savefig('EReta001.pdf')
+plt.savefig(str(IMAGES_DIR / 'EReta001.pdf'))
 plt.show()
 
 #%%
-SamelayerSameNode1 = np.loadtxt('Data/EReta25_mu05/final_corr1.txt')
-SamelayerSameNode2 = np.loadtxt('Data/EReta25_mu05/final_corr2.txt')
-DiffLayerSameNode = np.loadtxt('Data/EReta25_mu05/final_corr3.txt')
-SameLayerDiffNode1 = np.loadtxt('Data/EReta25_mu05/final_corr4.txt')
-DiffLayerDiffNode = np.loadtxt('Data/EReta25_mu05/final_corr5.txt')
-SamelayerDiffNode2 = np.loadtxt('Data/EReta25_mu05/final_corr6.txt')
+SamelayerSameNode1 = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr1.txt'))
+SamelayerSameNode2 = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr2.txt'))
+DiffLayerSameNode = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr3.txt'))
+SameLayerDiffNode1 = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr4.txt'))
+DiffLayerDiffNode = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr5.txt'))
+SamelayerDiffNode2 = np.loadtxt(str(DATA_DIR / 'EReta25_mu05/final_corr6.txt'))
 SamelayerSameNode1,ESamelayerSameNode1 = groupby_mean_and_error(SamelayerSameNode1)
 SamelayerSameNode2,ESamelayerSameNode2 = groupby_mean_and_error(SamelayerSameNode2)
 DiffLayerSameNode,EDiffLayerSameNode = groupby_mean_and_error(DiffLayerSameNode)
@@ -583,8 +594,8 @@ DiffLayerDiffNode,EDiffLayerDiffNode = groupby_mean_and_error(DiffLayerDiffNode)
 SamelayerDiffNode2,ESamelayerDiffNode2= groupby_mean_and_error(SamelayerDiffNode2)
 
 
-SS1MSTEQ = np.loadtxt('Data/eta25_mu05_N1000/final_corr1msteq.txt')
-SS2MSTEQ = np.loadtxt('Data/eta25_mu05_N1000/final_corr2msteq.txt')
+SS1MSTEQ = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr1msteq.txt'))
+SS2MSTEQ = np.loadtxt(str(DATA_DIR / 'eta25_mu05_N1000/final_corr2msteq.txt'))
 
 
 fig, axs = plt.subplots(1, 1, figsize=(6, 5))
@@ -615,5 +626,5 @@ axs.set_xscale('log')
 axs.legend(fontsize=12)
 
 plt.tight_layout()
-plt.savefig('EReta25.pdf')
+plt.savefig(str(IMAGES_DIR / 'EReta25.pdf'))
 plt.show()

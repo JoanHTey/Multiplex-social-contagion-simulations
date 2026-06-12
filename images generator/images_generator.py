@@ -3,11 +3,28 @@
 Created on Tue Jun  4 23:35:44 2024
 
 @author: Usuario
+
+Exploratory plotting script — relies on various intermediate files
+(simulation output, eta/gamma sweep .npy files) that must already exist
+in DATA_DIR. Run cell-by-cell (each #%% block is independent).
 """
+from pathlib import Path
+
 import numpy as np
 import matplotlib.pyplot as plt
+import networkx as nx
 
-with open('simulation/output.txt', 'r') as file:
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+ROOT       = Path(__file__).parent
+DATA_DIR   = ROOT / "Data"
+IMAGES_DIR = ROOT / "Images"
+SIM_DIR    = ROOT / "simulation"
+IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+with open(str(SIM_DIR / 'output.txt'), 'r') as file:
     lines = file.readlines()
 
 # Determine the number of time steps (T) and the number of elements (NTOT)
@@ -22,12 +39,11 @@ with open('simulation/output.txt', 'r') as file:
         matrix[i, :] = np.array(line.split(), dtype=int)
 
 plt.plot(np.mean(matrix,axis=1))
+plt.savefig(str(IMAGES_DIR / 'mean_activity.pdf'))
 plt.show()
 
 #%%
-import numpy as np
-import matplotlib.pyplot as plt
-with open('results.txt', 'r') as file:
+with open(str(DATA_DIR / 'results.txt'), 'r') as file:
     lines = file.readlines()
 
 # Initialize the matrix
@@ -39,20 +55,22 @@ with open('results.txt', 'r') as file:
 
 plt.plot(np.logspace(-2,-0.5,100),matrix[:,1])
 plt.plot(np.logspace(-2,-0.5,100),matrix[:,2])
+plt.savefig(str(IMAGES_DIR / 'results_corr.pdf'))
 plt.show()
 plt.plot(np.logspace(-2,-0.5,100),matrix[:,4])
 plt.plot(np.logspace(-2,-0.5,100),matrix[:,5])
 plt.axvline(0.014)
 plt.xscale('log')
+plt.savefig(str(IMAGES_DIR / 'results_chi.pdf'))
 plt.show()
 
 #%%
-eta0_01=np.load('eta_0.01_saves.npy')
-eta15=np.load('eta_15_saves.npy')
-eta50=np.load('eta_50_saves.npy')
-gamma5=np.load('gamma_5_saves.npy')
-gamma13=np.load('gamma_13.5_saves.npy')
-gamma100=np.load('gamma_100_saves.npy')
+eta0_01=np.load(str(DATA_DIR / 'eta_0.01_saves.npy'))
+eta15=np.load(str(DATA_DIR / 'eta_15_saves.npy'))
+eta50=np.load(str(DATA_DIR / 'eta_50_saves.npy'))
+gamma5=np.load(str(DATA_DIR / 'gamma_5_saves.npy'))
+gamma13=np.load(str(DATA_DIR / 'gamma_13.5_saves.npy'))
+gamma100=np.load(str(DATA_DIR / 'gamma_100_saves.npy'))
 
 plt.figure(figsize=[7,5])
 plt.subplot(233)
@@ -105,11 +123,9 @@ plt.ylabel(r'$\chi$',fontsize=14)
 
 
 plt.subplots_adjust(wspace=0, hspace=0)
+plt.savefig(str(IMAGES_DIR / 'eta_gamma_chi_panels.pdf'))
+plt.show()
 #%%
-import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
-
 def build_supra_adjacency_matrix(A_1, A_2, p, gamma):
     n = A_1.shape[0]
 
@@ -267,11 +283,13 @@ for i in range(10):
 
 ER1=ER1/10 
 ER2=ER2/10
+np.save(str(DATA_DIR / 'ER1.npy'), ER1)
+np.save(str(DATA_DIR / 'ER2.npy'), ER2)
 #%%
 colors=['red','blue','green','orange','pink','brown','gray','yellow','purple','lima']
 i=0
-#ER1=np.load('ER1.npy')
-#ER2=np.load('ER2.npy')
+#ER1=np.load(str(DATA_DIR / 'ER1.npy'))
+#ER2=np.load(str(DATA_DIR / 'ER2.npy'))
 
 
 plt.figure(figsize=[7,7])
@@ -349,6 +367,7 @@ plt.yticks(fontsize=12)
 plt.xlabel("p/p*",fontsize=14)
 plt.yticks([],[]) 
 plt.subplots_adjust(wspace=0, hspace=0)
+plt.savefig(str(IMAGES_DIR / 'IPR_panels.pdf'))
 plt.show()
 
 
