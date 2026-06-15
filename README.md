@@ -1,4 +1,4 @@
-# Multilayer Ising-like synchronisation simulation in Fortran, orchestrated from Python.
+# Multilplex social contagion contact based simulation in Fortran, orchestrated from Python.
 
 ---
 
@@ -29,9 +29,9 @@
 
 ## Overview
 
-This project implements a **multilayer Ising-like synchronisation model** on random networks. The simulation core is written in **Fortran** for performance and is compiled and invoked automatically by a Python orchestration layer (`sim_manager.py`). All workflows — single runs, parameter sweeps, and correlation analyses — are accessible through a single entry point.
+This project implements a **multiplex social contagion contact-based model. The simulation core is written in **Fortran** for performance and is compiled and invoked automatically by a Python orchestration layer (`sim_manager.py`). All workflows — single runs, parameter sweeps, and correlation analyses — are accessible through a single entry point.
 
-The model studies how inter-layer coupling (`INPR`/beta) and noise (`ETA`) affect synchronisation across two-layer Erdős–Rényi (or regular random, RRN) networks. Results are stored as binary data and post-processed into HDF5 correlation files and PDF/PNG plots.
+The model studies how intra-layer contagion ratio (`INPR`) and interlayer contagion ratio (`ETA`) in order to study the regime transition signatiures in correlation. Results are stored as binary data and post-processed into HDF5 correlation files and PDF/PNG plots.
 
 ---
 
@@ -53,18 +53,11 @@ TFM/
 ├── correlationCalc/
 │   └── corrtrue.py             ← reads output.bin, computes lag correlations → HDF5
 │
-├── experiment/                 ← experimental / exploratory scripts
+├── experiment/                 ← experiment sudden beta change in simulation
 ├── images generator/           ← scripts for generating result plots
 ├── images/                     ← output plots (PDF/PNG)
 ├── Data/                       ← result data (TXT/NPY)
 ├── mstereq/                    ← mean-field / master-equation utilities
-├── scripts/                    ← helper/utility scripts
-├── outdated/                   ← deprecated scripts kept for reference
-│
-├── FinalBetaLoop.py            ← standalone beta-sweep script (legacy entry point)
-├── corrLoop.py                 ← standalone correlation-loop script (legacy)
-├── density.py                  ← standalone density-sweep script (legacy)
-├── loop.py                     ← standalone general loop script (legacy)
 │
 ├── .gitattributes
 ├── .gitignore
@@ -309,12 +302,11 @@ python matrixGeneration/adjacencymat.py --N 1000 --GAMMA1 100000 --GAMMA2 100000
 
 ### `correlationCalc/corrtrue.py`
 
-Reads the raw binary simulation output and computes lag-0 and lag-k cross-correlations between node activity time series.
+Reads the raw binary simulation output and computes lag-k cross-correlations between node activity time series.
 
 **What it does:**
 - Reads `output.bin` produced by the Fortran simulation.
 - Computes pairwise (or mean-field) lag correlations across both layers.
-- Writes results to an **HDF5** file in `DATA/`.
 
 **Usage (direct):**
 ```bash
@@ -394,13 +386,7 @@ Edit `beta_before`, `beta_after`, `switch_time` (or set `switch_time = None` for
 |------|---------|
 | `DATA/eta{η}_mu{μ}_N{N}/final_corr{1..6}.txt` | Appended correlation results from beta-loop and eta-loop sweeps |
 | `DATA/*.npy` | Per-layer density arrays from density sweeps |
-| `DATA/*.h5` | HDF5 files with full lag-correlation data from corrtrue.py |
 | `images/*.pdf` / `images/*.png` | Result plots (correlation matrices, density curves, etc.) |
-| `CorrAll.pdf/.png` | Correlation matrix over all parameter combinations |
-| `CorrBeta*.pdf/.png` | Correlation vs. beta (INPR) at specific ETA values |
-| `CorrDiffEta*.pdf/.png` | Correlation difference across ETA values |
-| `ER*.pdf` | Expected-value / error plots |
-| `muAnalisis.pdf` | Analysis of the μ (death rate) parameter |
 
 ---
 
@@ -428,7 +414,7 @@ Do **not** commit these files.
 | `experiment/` | Sudden-beta-change experiment: simulates an abrupt shift in inter-layer coupling at a random time, mimicking real-network perturbations |
 | `images generator/` | Scripts for producing plots from DATA/ |
 | `images/` | Output plots (PDF/PNG) |
-| `Data/` | Output data (TXT/NPY/HDF5) |
+| `Data/` | Output data (TXT/NPY) |
 | `mstereq/` | Numerical integration of the master equation for the model; provides mean-field reference trajectories to compare against simulation results |
-| `scripts/` | Utility and helper scripts |
-| `outdated/` | Deprecated scripts kept for historical reference |
+
+
