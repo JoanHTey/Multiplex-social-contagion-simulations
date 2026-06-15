@@ -360,11 +360,11 @@ Edit parameters (ETA, INPR, MU, integration step size, total time) directly at t
 
 ### `experiment/` – Sudden Beta-Change Experiment
 
-Simulates a **sudden, instantaneous shift in the inter-layer coupling** (β / `INPR`) at a randomly chosen time during the run. This models real-world scenarios where the coupling between two network layers changes abruptly — analogous to, for example, the sudden strengthening or weakening of ties between two social or biological networks.
+Simulates a **sudden, instantaneous shift in the intra-layer coupling** (β / `INPR`) at a randomly chosen time during the run. This models real-world scenarios where the coupling between two network layers changes abruptly.
 
 **What it does:**
 - Runs the Fortran simulation normally up to a random (or fixed) switching time `t*`.
-- At `t*`, the inter-layer coupling is changed from an initial value β₀ to a new value β₁ without interrupting the spin dynamics.
+- At `t*`, the intra-layer coupling is changed from an initial value β₀ to a new value β₁ without interrupting the spin dynamics.
 - Records the system's response — how node activity, correlations, and synchronisation evolve before and after the switch.
 - Useful for studying transient dynamics and recovery times after a structural perturbation.
 
