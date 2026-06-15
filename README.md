@@ -35,7 +35,7 @@ This project implements a **multiplex social contagion contact-based model. The 
 
 The model studies how intra-layer contagion ratio (`INPR`) and interlayer contagion ratio (`ETA`) in order to study the regime transition signatiures in correlation. Results are stored as binary data and post-processed into HDF5 correlation files and PDF/PNG plots.
 
-If you need more information about the model and results check Tey, J. H., & Cozzo, E. (2026). Correlation-Based Diagnostics of Social Contagion Dynamics in Multiplex Networks. arXiv preprint arXiv:2601.22459
+For more information, see the [References](#references).
 
 ---
 
@@ -383,6 +383,13 @@ Edit `beta_before`, `beta_after`, `switch_time` (or set `switch_time = None` for
 
 ---
 
+## References
+
+- Tey, J. H., & Cozzo, E. (2026). *Correlation-Based Diagnostics of Social Contagion Dynamics in Multiplex Networks.* arXiv preprint. [arXiv:2601.22459](https://arxiv.org/abs/2601.22459)
+
+- Tey, J. H., & Cozzo, E. (2024). *Eigenvector Localization and Universal Regime Transitions in Multiplex Networks: A Perturbative Approach.* arXiv preprint. [arXiv:2408.04784](https://arxiv.org/abs/2408.04784)
+
+---
 
 ## Output Files & Data
 
