@@ -1,3 +1,5 @@
+[![arXiv](https://img.shields.io/badge/arXiv-2601.22459-b31b1b.svg)](https://arxiv.org/abs/2601.22459)
+
 # Multilplex social contagion contact based simulation in Fortran, orchestrated from Python.
 
 ---
@@ -32,6 +34,8 @@
 This project implements a **multiplex social contagion contact-based model. The simulation core is written in **Fortran** for performance and is compiled and invoked automatically by a Python orchestration layer (`sim_manager.py`). All workflows — single runs, parameter sweeps, and correlation analyses — are accessible through a single entry point.
 
 The model studies how intra-layer contagion ratio (`INPR`) and interlayer contagion ratio (`ETA`) in order to study the regime transition signatiures in correlation. Results are stored as binary data and post-processed into HDF5 correlation files and PDF/PNG plots.
+
+If you need more information about the model and results check Tey, J. H., & Cozzo, E. (2026). Correlation-Based Diagnostics of Social Contagion Dynamics in Multiplex Networks. arXiv preprint arXiv:2601.22459
 
 ---
 
@@ -341,7 +345,7 @@ gfortran -O2 -o simulation sync.f90 r1279.f90 ran2.f
 Provides a **mean-field analytical reference** for the simulation by numerically integrating the master equation of the model.
 
 **What it does:**
-- Evolves the probability distribution over system states forward in time by solving the master equation numerically (e.g. via Euler or Runge-Kutta integration), rather than through stochastic Monte Carlo sampling.
+- Evolves the probability distribution over system states forward in time by evolving the master equation numerically.
 - Because this is a deterministic numerical integration rather than a noisy simulation, it produces smooth, noise-free trajectories that serve as a theoretical baseline.
 - Results can be overlaid on top of simulation data (from `sim_manager.py`) to assess how well the mean-field approximation captures the true dynamics at finite network sizes.
 
