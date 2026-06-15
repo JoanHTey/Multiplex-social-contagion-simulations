@@ -32,7 +32,7 @@
 
 ## Overview
 
-This project implements a **multiplex social contagion contact-based model. The simulation core is written in **Fortran** for performance and is compiled and invoked automatically by a Python orchestration layer (`sim_manager.py`). All workflows — single runs, parameter sweeps, and correlation analyses — are accessible through a single entry point.
+This project implements a **multiplex social contagion contact-based model**. The simulation core is written in **Fortran** for performance and is compiled and invoked automatically by a Python orchestration layer (`sim_manager.py`). All workflows — single runs, parameter sweeps, and correlation analyses — are accessible through a single entry point.
 
 The model studies how intra-layer contagion ratio (`INPR`) and interlayer contagion ratio (`ETA`) in order to study the regime transition signatiures in correlation. Results are stored as binary data and post-processed into HDF5 correlation files and PDF/PNG plots.
 
