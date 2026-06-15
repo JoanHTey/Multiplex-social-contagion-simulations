@@ -1,7 +1,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2601.22459-b31b1b.svg)](https://arxiv.org/abs/2601.22459)
 [![arXiv](https://img.shields.io/badge/arXiv-2408.04784-b31b1b.svg)](https://arxiv.org/abs/2408.04784)
 
-# Multiplex social contagion contact based simulation.
+# Multiplex social contagion contact based simulation
 
 Main simulations are Fortran scripts and managed from python.
 
