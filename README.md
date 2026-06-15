@@ -1,6 +1,4 @@
-# TFM – Simulation Manager
-
-Multilayer Ising-like synchronisation simulation in Fortran, orchestrated from Python.
+# Multilayer Ising-like synchronisation simulation in Fortran, orchestrated from Python.
 
 ---
 
